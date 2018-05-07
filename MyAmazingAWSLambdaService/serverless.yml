@@ -12,8 +12,18 @@ provider:
         Action:
           - dynamodb:*
         Resource: "arn:aws:dynamodb:us-east-1:669973924068:table/product"
+      - Effect: Allow
+        Action:
+          - s3:*
+        Resource: "arn:aws:s3:::myamazingbuckets3"
 
 functions:
+  bulk_insert:
+    handler: bulk_handler.bulk_insert
+    events:
+      - s3:
+          bucket: myamazingbuckets3
+          event: s3:ObjectCreated:*
   save_product:
     handler: handler.save
     events:
