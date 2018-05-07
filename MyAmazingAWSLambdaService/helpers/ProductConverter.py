@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import json
 
 
 class ProductConverter:
@@ -7,9 +8,10 @@ class ProductConverter:
         """
            convert entity from input to dictionary to be saved on dynamodb
         """
+        data = json.loads(event['body'])
         return {
-            'id': event['body']['id'],
-            'name': event['body'].get('name', default=''),
-            'description': event['body'].get('description', default=''),
-            'price': event['body'].get('price', default='')
+            'id': data['id'],
+            'name': data.get('name', default=''),
+            'description': data.get('description', default=''),
+            'price': data.get('price', default='')
         }
