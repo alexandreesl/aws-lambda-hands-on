@@ -7,6 +7,12 @@ provider:
   region: ${opt:region, 'us-east-1'}
   profile: personal
 
+  iamRoleStatements: # permissions for all of your functions can be set here
+      - Effect: Allow
+        Action:
+          - dynamodb:*
+        Resource: "arn:aws:dynamodb:us-east-1:669973924068:table/product"
+
 functions:
   save_product:
     handler: handler.save
