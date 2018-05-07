@@ -11,7 +11,7 @@ class ProductConverter:
         data = json.loads(event['body'])
         return {
             'id': data['id'],
-            'name': data.get('name', default=''),
-            'description': data.get('description', default=''),
-            'price': data.get('price', default='')
+            'name': data.get('name', ''),
+            'description': data.get('description', ''),
+            'price': data.get('price', '')
         }
