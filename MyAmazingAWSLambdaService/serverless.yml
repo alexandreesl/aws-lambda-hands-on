@@ -3,7 +3,48 @@ service: MyAmazingAWSLambdaService
 provider:
   name: aws
   runtime: python3.6
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  profile: personal
 
 functions:
-  hello:
-    handler: handler.hello
+  save_product:
+    handler: handler.save
+    events:
+      - http:
+          path: product/save
+          method: post
+  update_product:
+    handler: handler.save
+    events:
+      - http:
+          path: product/update
+          method: patch
+  get_product:
+    handler: handler.get
+    events:
+      - http:
+          path: product/{product_id}
+          method: get
+  delete_product:
+    handler: handler.delete
+    events:
+      - http:
+          path: product/{product_id}
+          method: delete
+
+resources:
+  Resources:
+    product:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: product
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
