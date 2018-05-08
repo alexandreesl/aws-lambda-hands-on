@@ -1,5 +1,12 @@
 service: MyAmazingAWSLambdaService
 
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
 provider:
   name: aws
   runtime: python3.6
@@ -14,8 +21,9 @@ provider:
         Resource: "arn:aws:dynamodb:us-east-1:669973924068:table/product"
       - Effect: Allow
         Action:
-          - s3:*
-        Resource: "arn:aws:s3:::myamazingbuckets3"
+          - s3:ObjectCreated
+          - s3:GetObject
+        Resource: "arn:aws:s3:::myamazingbuckets3/*"
 
 functions:
   bulk_insert:

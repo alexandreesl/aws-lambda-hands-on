@@ -5,7 +5,7 @@ import pandas as pd
 
 from helpers.DynamoDbHelper import DynamoDbHelper
 
-client = boto3.client('s3')
+s3 = boto3.resource('s3')
 dynamodb_helper = DynamoDbHelper(table='product')
 
 
@@ -13,8 +13,10 @@ def bulk_insert(event, context):
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
         key = record['s3']['object']['key']
-        obj = client.get_object(Bucket=bucket, Key=key)
-        products = pd.read_csv(obj['Body'])
+        print('Bucket: ' + bucket)
+        print('Key: ' + key)
+        obj = s3.Object(bucket, key)
+        products = pd.read_csv(obj.get()['Body'])
         products_records = products.fillna('').to_dict('records')
         for product in products_records:
             record = {
