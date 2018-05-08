@@ -21,7 +21,7 @@ def bulk_insert(event, context):
         products_records = products.fillna('').to_dict('records')
         for product in products_records:
             record = {
-                'id': product['id'],
+                'id': str(product['id']),
                 'name': product.get('name', ''),
                 'description': product.get('description', ''),
                 'price': str(product.get('price', '0'))
