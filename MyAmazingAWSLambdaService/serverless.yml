@@ -21,7 +21,6 @@ provider:
         Resource: "arn:aws:dynamodb:us-east-1:669973924068:table/product"
       - Effect: Allow
         Action:
-          - s3:ObjectCreated
           - s3:GetObject
         Resource: "arn:aws:s3:::myamazingbuckets3/*"
 
