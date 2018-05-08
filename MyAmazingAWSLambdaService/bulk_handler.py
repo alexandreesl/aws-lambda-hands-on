@@ -24,6 +24,6 @@ def bulk_insert(event, context):
                 'id': product['id'],
                 'name': product.get('name', ''),
                 'description': product.get('description', ''),
-                'price': product.get('price', '')
+                'price': str(product.get('price', '0'))
             }
             dynamodb_helper.save(record)
