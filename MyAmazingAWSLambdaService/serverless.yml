@@ -37,24 +37,28 @@ functions:
       - http:
           path: product/save
           method: post
+          private: true
   update_product:
     handler: handler.save
     events:
       - http:
           path: product/update
           method: patch
+          private: true
   get_product:
     handler: handler.get
     events:
       - http:
           path: product/{product_id}
           method: get
+          private: true
   delete_product:
     handler: handler.delete
     events:
       - http:
           path: product/{product_id}
           method: delete
+          private: true
 
 resources:
   Resources:
