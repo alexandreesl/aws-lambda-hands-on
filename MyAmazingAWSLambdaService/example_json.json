@@ -1,6 +1,8 @@
 {
-    "id":"123",
+  "body": {
+    "id": "123",
     "name": "product 1",
     "description": "description 1",
     "price": "123.24"
+  }
 }

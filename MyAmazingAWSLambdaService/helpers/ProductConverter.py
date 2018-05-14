@@ -8,7 +8,10 @@ class ProductConverter:
         """
            convert entity from input to dictionary to be saved on dynamodb
         """
-        data = json.loads(event['body'])
+        if isinstance(event['body'], dict):
+            data = event['body']
+        else:
+            data = json.loads(event['body'])
         return {
             'id': data['id'],
             'name': data.get('name', ''),
